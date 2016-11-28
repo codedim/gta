@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<head><title>What is GTA?</title>
+<meta charset="utf-8">
+<style>
+body { font-family: sans-serif }
+.sizeable { text-align: center; }
+.fullscreen { position: fixed; }
+.sizeable img, .fullscreen img { cursor: pointer; }
+/*.fullscr > img { width: 100%; height: 100% }*/
+</style>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+</head><body>
+
+<h2>What is GTA?</h2>
+<p>GTA is a Google Translate Assistant extension for the Google Chrome browser. 
+The extension was specially designed to help with learning a foreign language 
+using the great Google Translate service.
+<p class="sizeable"><img src="gta.01.png" width="360" />
+<p>Let's look at the service more carefully. What's wrong with it? It's pretty 
+nothing if you are using a mouse. So, what about if you want to use only 
+keyboard to work with it? From this point of view it doesn't look very friendly.
+But, why? Let's see.
+<p class="sizeable"><img src="gta.02.png" width="360" />
+<p>When you start typing in any text Google immediately brings a list of suggestions 
+to you. It's very useful. But, there's a problem, you can't see phonetic notation 
+(transcription) anymore and you aren't able to access the buttons -- for example, 
+to play pronunciation sounds -- before you've pressed <i>Esc</i> key to remove the 
+suggestion list.
+<p class="sizeable"><img src="gta.03.png" width="360" />
+<p>An another essential problem is that you can't switch languages without your 
+mouse. But, what about if we might be able to see the transcription all the time 
+and also have some useful keyboard shortcuts to switch languages, play 
+pronunciation, etc? Sounds good? Well, let's go ahead.
+<p class="sizeable"><img src="gta.04.png" width="360" />
+<p>After you has installed the GTA extension, you will be able to see the 
+transcription instead of the '<i>Translate</i>' header and get the following 
+shortcuts:
+<ul><li><b>Ctrl + 'M'</b> - to activate/disactivate microphone;
+</li><li><b>Ctrl + ' , '</b> - to play the left side source text;
+</li><li><b>Ctrl + ' . '</b> - to play the right side result text;
+</li><li><b>Ctrl + ' / '</b> and <b>Shift + Alt</b> - to switch between languages.
+<p><quote><b>Note:</b> The <b>Shift + Alt</b> shortcut is more useful when you need 
+to switch between your favorite languages in the Google service, because in this 
+way you can also switch between keyboard input languages and start typing with the 
+different language immediately. Use the <b>Ctrl + ' / '</b> shortcut if you just 
+need to switch languages in the service only.</quote>
+</li></ul>
+
+<h2>How to install?</h2>
+<p>You can have this extension installed only in <b>Developer mode</b> currently. 
+To do that click the "<i>Customize and control Google Chrome</i>" button and select 
+"<i>More tools -> Extensions</i>", then enable the "<i>Developer mode</i>" and 
+press the "<i>Load unpacked extension</i>" button. Point the folder when you have 
+downloaded this repository.
+<p class="sizeable"><img src="gta.05.png" width="360" />
+<p>Finally, reload the Google Translate service page.
+
+<h2>FAQ</h2>
+<p><b>Why isn't any customization of shortcuts provided?</b>
+<p>The code is pretty simple, so you can change it as you need. Maybe in the next 
+release.
+<p><b>Why is the developer mode needed to be used?</b>
+<p>I haven't yet plans to post the utility on the Google store. So, I apologize for 
+this inconvenience.
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $('p img').click(function () {
+		var obj = $(this).parent();
+        var url = obj.find('img').attr('src');
+		var top = (window.innerHeight - this.naturalHeight) / 2;
+		var left = (window.innerWidth - this.naturalWidth) / 2;
+        var html = '<div class="fullscreen" style="top: ' + top + 
+			'px; left: ' + left + 'px"><img src="' + url + '"></div>';
+        obj.append(html);
+        obj = obj.find('.fullscreen');
+        obj.click(function () {
+            $(this).remove();
+        });
+    });
+	$(window).scroll(function() {
+		$('div.fullscreen').remove();
+	});
+});
+</script>
+</body></html>
