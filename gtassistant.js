@@ -117,6 +117,7 @@ function processKeyEvent(keyCode, isKeyDown) {
 		dispatchEvent(mouseEvent['mousedown']);
 		dispatchEvent(mouseEvent['mouseup']);
 		dispatchEvent(mouseEvent['mouseout']);
+		srcTextArea.focus();
 	}
 
 	// update key array
