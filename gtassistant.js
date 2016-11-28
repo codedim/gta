@@ -94,7 +94,7 @@ function setMouseEvents() {
 
 function processKeyEvent(keyCode, isKeyDown) {
 	// process shortcuts
-	var controlButton;
+	var controlButton, selectText = false;
 	if (!isKeyDown && keyArray.length == 2) {
 	 	if (keyArray[0] == kcCtrl && keyArray[1] == kcMKey)
 	 		controlButton = speechElem;
@@ -107,7 +107,10 @@ function processKeyEvent(keyCode, isKeyDown) {
 	 	// on switch input languages
 	 	if (keyArray[0] == kcShift && keyArray[1] == kcAlt || 
 	 		keyArray[0] == kcAlt && keyArray[1] == kcShift)
+		{
 	 		controlButton = swapElem;
+			selectText = true;
+		}
 	} 
 
 	// do the job
@@ -118,6 +121,7 @@ function processKeyEvent(keyCode, isKeyDown) {
 		dispatchEvent(mouseEvent['mouseup']);
 		dispatchEvent(mouseEvent['mouseout']);
 		srcTextArea.focus();
+		if (selectText) srcTextArea.select();
 	}
 
 	// update key array
