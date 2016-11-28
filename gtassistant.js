@@ -137,6 +137,8 @@ function dispatchTranslate() {
 	}
 
 	// for debug only, must be commented!
-/*	translitElem.innerHTML = String(keyArray);  */
+/*	
+	translitElem.innerHTML = String(keyArray);  
+*/
 }
 
