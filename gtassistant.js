@@ -1,7 +1,8 @@
 /*
+**  Google Translate Assistant - extension for Chrome browser.
+**  https://github.com/codedim/gta
 **  
-**  
-**  
+**  powered by codedim
 */
 
 // key code constants
@@ -21,8 +22,10 @@ var speechElem;      // microphone button
 var srcListenElem;   // source speaker button
 var resListenElem;   // result speaker button
 var srcTextArea;     // input source textarea
-// keyboard keydown and keyup control
+
+// keyboard and mouse event control arrays
 var keyArray = [];   // array of pressed keys 
+var mouseEvent = []; // array of mouse events
 
 
 window.onload = function() {
@@ -57,7 +60,7 @@ window.onload = function() {
 			console.log('Error: Source textarea element was not found!');
 	}
 
-	setupMouseEventEmulator();
+	setMouseEvents();
 }
 
 window.onfocus = function() {
@@ -79,9 +82,7 @@ window.addEventListener("keyup", function(event) {
 });
 
 
-var mouseEvent = [];
-
-function setupMouseEventEmulator() {
+function setMouseEvents() {
 	var events = ['mousedown', 'mouseup', 'mouseout', 'mouseover', 'click'];
 
 	for (var i = 0, e; e = events[i++];) {
