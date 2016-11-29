@@ -36,12 +36,12 @@ shortcuts:
 * **Ctrl + ' , '** - to play the left side source text;
 * **Ctrl + ' . '** - to play the right side result text;
 * **Ctrl + ' / '** - to switch between languages;
-* **Alt + Shift** or **Ctrl + Shift**  - to switch languages and select text.
+* **Alt + Shift** - to switch languages and select text.
 
-> **Note:** The **Alt + Shift** and **Ctrl + Shift** shortcuts is more useful when 
-you need to switch between your favorite languages in the Google service, because in 
-such a way you can also switch between keyboard input languages and start typing with 
-the different language immediately. Use the **Ctrl + ' / '** shortcut if you just 
+> **Note:** The **Alt + Shift** shortcut is more useful when you need to switch 
+between your favorite languages in the Google service, because in such a way 
+you can also switch between keyboard input languages and start typing with the 
+different language immediately. Use the **Ctrl + ' / '** shortcut if you just 
 need to switch languages in the service only.
 
 ## How to install?

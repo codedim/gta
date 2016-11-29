@@ -1,8 +1,9 @@
 /*
-**  Google Translate Assistant - extension for Chrome browser.
-**  https://github.com/codedim/gta
+**  Google Translate Assistant is an extension for the Google Chrome 
+**  browser that provides an user with convenient keyboard shortcuts 
+**  for the Google Translate service.
 **  
-**  powered by codedim
+**  powered by codedim, https://github.com/codedim/gta
 */
 
 // key code constants
@@ -13,6 +14,8 @@ const kcMKey  =  77;
 const kcComma = 188;
 const kcDot   = 190;
 const kcSlash = 191;
+// max chars in appname elem
+const maxAppnameChars = 60;
 
 // global variables, control and information elements
 var translitElem;    // phonetic notation
@@ -104,11 +107,9 @@ function processKeyEvent(keyCode, isKeyDown) {
 	 		controlButton = resListenElem;
 	 	if (keyArray[0] == kcCtrl && keyArray[1] == kcSlash)  
 	 		controlButton = swapElem;
-	 	// switching keyboard input languages by Alt+Shift or Ctrl+Shift
+	 	// switching keyboard input languages by Alt+Shift shortcut
 	 	if ( (keyArray[0] == kcShift && keyArray[1] == kcAlt) || 
-	 		 (keyArray[0] == kcAlt && keyArray[1] == kcShift) ||
-			 (keyArray[0] == kcCtrl && keyArray[1] == kcShift) ||
-			 (keyArray[0] == kcShift && keyArray[1] == kcCtrl) )
+	 		 (keyArray[0] == kcAlt && keyArray[1] == kcShift) )
 		{
 	 		controlButton = swapElem;
 			selectText = true;
@@ -144,10 +145,14 @@ function processKeyEvent(keyCode, isKeyDown) {
 function dispatchTranslate() {
 	if (appnameElem.innerHTML !== translitElem.innerHTML) {
 		appnameElem.innerHTML = translitElem.innerHTML;
+		// do not overfloat appname elem
+		if (appnameElem.innerHTML.length >= maxAppnameChars) {
+			appnameElem.innerHTML = appnameElem.innerHTML.substr(0, 
+				maxAppnameChars) + '...';
+		}
 	}
-
-	// for debug only, must be commented!
 /*	
+	// for debug only, must be commented!
 	translitElem.innerHTML = String(keyArray);  
 */
 }

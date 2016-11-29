@@ -1,11 +1,21 @@
 {
   "manifest_version": 2,
   "name": "Google Translate Assistant",
-  "version": "1.0",
+  "description": "Keyboard shortcuts for the Google Translate service.",
+  "version": "1.2",
 
   "icons": {
     "128": "gtassistant.png"
   },
+
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+    
+  "permissions": [
+    "declarativeContent"
+  ],  
 
   "content_scripts": [
     {
