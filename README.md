@@ -4,14 +4,14 @@ GTA is a Google Translate Assistant extension for the Google Chrome browser.
 The extension was specially designed to help with learning a foreign language 
 using the great Google Translate service.
 
-![](./Info/gta.01.png =480x)
+![](./Info/gta.01.png)
 
 Let's look at the service more carefully. What's wrong with it? It's pretty 
 nothing if you are using a mouse. So, what about if you want to use only 
 keyboard to work with it? From this point of view it doesn't look very friendly.
 But, why? Let's see.
 
-![](./Info/gta.02.png =480x)
+![](./Info/gta.02.png)
 
 When you start typing in any text Google immediately brings a list of suggestions 
 to you. It's very useful. But, there's a problem, you can't see phonetic notation 
@@ -19,14 +19,14 @@ to you. It's very useful. But, there's a problem, you can't see phonetic notatio
 to play pronunciation sounds - before you've pressed __Esc__ key to remove the 
 suggestion list.
 
-![](./Info/gta.03.png =480x)
+![](./Info/gta.03.png)
 
 An another essential problem is that you can't switch languages without your 
 mouse. But, what about if we might be able to see the transcription all the time 
 and also have some useful keyboard shortcuts to switch languages, play 
 pronunciation, etc? Sounds good? Well, let's go ahead.
 
-![](./Info/gta.04.png =480x)
+![](./Info/gta.04.png)
 
 After you has installed the GTA extension, you will be able to see the 
 transcription instead of the '__Translate__' header and get the following 
@@ -35,12 +35,13 @@ shortcuts:
 * **Ctrl + 'M'** - to activate/disactivate microphone;
 * **Ctrl + ' , '** - to play the left side source text;
 * **Ctrl + ' . '** - to play the right side result text;
-* **Ctrl + ' / '** and **Shift + Alt** - to switch between languages.
+* **Ctrl + ' / '** - to switch between languages;
+* **Alt + Shift** or **Ctrl + Shift**  - to switch languages and select text.
 
-> **Note:** The **Shift + Alt** shortcut is more useful when you need 
-to switch between your favorite languages in the Google service, because in this 
-way you can also switch between keyboard input languages and start typing with the 
-different language immediately. Use the **Ctrl + ' / '** shortcut if you just 
+> **Note:** The **Alt + Shift** and **Ctrl + Shift** shortcuts is more useful when 
+you need to switch between your favorite languages in the Google service, because in 
+such a way you can also switch between keyboard input languages and start typing with 
+the different language immediately. Use the **Ctrl + ' / '** shortcut if you just 
 need to switch languages in the service only.
 
 ## How to install?
@@ -51,7 +52,7 @@ To do that click the "__Customize and control Google Chrome__" button and select
 press the "__Load unpacked extension__" button. Point the folder when you have 
 downloaded this repository.
 
-![](./Info/gta.05.png =480x)
+![](./Info/gta.05.png)
 
 Finally, reload the Google Translate service page.
 

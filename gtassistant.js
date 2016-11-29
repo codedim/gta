@@ -104,9 +104,11 @@ function processKeyEvent(keyCode, isKeyDown) {
 	 		controlButton = resListenElem;
 	 	if (keyArray[0] == kcCtrl && keyArray[1] == kcSlash)  
 	 		controlButton = swapElem;
-	 	// on switch input languages
-	 	if (keyArray[0] == kcShift && keyArray[1] == kcAlt || 
-	 		keyArray[0] == kcAlt && keyArray[1] == kcShift)
+	 	// switching keyboard input languages by Alt+Shift or Ctrl+Shift
+	 	if ( (keyArray[0] == kcShift && keyArray[1] == kcAlt) || 
+	 		 (keyArray[0] == kcAlt && keyArray[1] == kcShift) ||
+			 (keyArray[0] == kcCtrl && keyArray[1] == kcShift) ||
+			 (keyArray[0] == kcShift && keyArray[1] == kcCtrl) )
 		{
 	 		controlButton = swapElem;
 			selectText = true;
@@ -130,7 +132,11 @@ function processKeyEvent(keyCode, isKeyDown) {
 		if (keyArray[keyArray.length - 1] !== keyCode) 
 			keyArray.push(keyCode);
 	} else {
-		keyArray.pop();
+		// just free key array if any control key was up
+		if (keyCode == kcCtrl || keyCode == kcAlt || keyCode == kcShift)
+			keyArray = [];
+		else
+			keyArray.pop();
 	}
 }
 
