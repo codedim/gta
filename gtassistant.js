@@ -102,9 +102,12 @@ function processKeyEvent(keyCode, isKeyDown) {
 	 	if (keyArray[0] == kcCtrl && keyArray[1] == kcMKey)
 	 		controlButton = speechElem;
 	 	if (keyArray[0] == kcCtrl && keyArray[1] == kcComma)  
+		{
 	 		controlButton = srcListenElem;
-	 	if (keyArray[0] == kcCtrl && keyArray[1] == kcDot)    
-	 		controlButton = resListenElem;
+			selectText = true;
+		}
+	 	if (keyArray[0] == kcCtrl && keyArray[1] == kcDot) 
+			controlButton = resListenElem;
 	 	if (keyArray[0] == kcCtrl && keyArray[1] == kcSlash)  
 	 		controlButton = swapElem;
 	 	// switching keyboard input languages by Alt+Shift shortcut
