@@ -15,7 +15,7 @@ const kcComma = 188;
 const kcDot   = 190;
 const kcSlash = 191;
 // max chars in appname elem
-const maxAppnameChars = 60;
+const maxAppnameChars = 120;
 
 // global variables, control and information elements
 var translitElem;    // phonetic notation
@@ -25,6 +25,7 @@ var speechElem;      // microphone button
 var srcListenElem;   // source speaker button
 var resListenElem;   // result speaker button
 var srcTextArea;     // input source textarea
+var srcLangArea;     // source language area (buttons)
 
 // keyboard and mouse event control arrays
 var keyArray = [];   // array of pressed keys 
@@ -41,9 +42,11 @@ window.onload = function() {
 	srcListenElem = document.getElementById('gt-src-listen');
 	resListenElem = document.getElementById('gt-res-listen');
 	srcTextArea   = document.getElementById('source');
+	srcLangArea   = document.getElementById('gt-sl-sugg');
 	
 	if (translitElem && appnameElem && swapElem &&
-		speechElem && srcListenElem && resListenElem) 
+		speechElem && srcListenElem && resListenElem && 
+		srcTextArea && srcLangArea) 
 	{
 		window.setInterval(dispatchTranslate, 100);	
 	} else {
@@ -61,6 +64,8 @@ window.onload = function() {
 			console.log('Error: Result speaker button element was not found!');
 		if (!srcTextArea) 
 			console.log('Error: Source textarea element was not found!');
+		if (!srcLangArea) 
+			console.log('Error: Source select language element was not found!');		
 	}
 
 	setMouseEvents();
@@ -68,8 +73,9 @@ window.onload = function() {
 
 window.onfocus = function() {
 	keyArray = [];
-	// set focus to source input textarea
+	// set focus and select text in source textarea
 	srcTextArea.focus();
+	srcTextArea.select();
 }
 
 window.onblur = function() {
@@ -146,8 +152,20 @@ function processKeyEvent(keyCode, isKeyDown) {
 
 
 function dispatchTranslate() {
+	const GreySlash  = ' <span style="color:gray">/</span> ';
+
 	if (appnameElem.innerHTML !== translitElem.innerHTML) {
+		// determine the sourse language and if it's English
+		if (getSourceLang() == 'en' && translitElem.innerHTML.length) {
+			if (!translitElem.innerHTML.includes(GreySlash)) {
+				var transcriptStr = getEngTranscription(translitElem.innerHTML);
+				translitElem.innerHTML += GreySlash + transcriptStr;
+			}
+		}
+
+		// replace appname elem text with translit elem text
 		appnameElem.innerHTML = translitElem.innerHTML;
+
 		// do not overfloat appname elem
 		if (appnameElem.innerHTML.length >= maxAppnameChars) {
 			appnameElem.innerHTML = appnameElem.innerHTML.substr(0, 
@@ -160,3 +178,45 @@ function dispatchTranslate() {
 */
 }
 
+function getSourceLang() {
+	var langButtons = srcLangArea.childNodes;
+	for (var i = 0; i < langButtons.length; i++) {
+		if (langButtons[i].hasAttribute('role') &&
+			langButtons[i].getAttribute('role') == 'button')
+		{
+			if (langButtons[i].hasAttribute('aria-pressed') &&
+				langButtons[i].getAttribute('aria-pressed') == 'true' &&
+				langButtons[i].hasAttribute('value')) 
+			{
+				return langButtons[i].getAttribute('value');
+			}
+		}
+	};
+	return false;
+}
+
+function getEngTranscription(translitStr) {
+	const translitArray  = [ 'j', 'ZH', 'y', 'SH', 'CH', 'NG', 'T͟H', 'TH', 
+		'a', 'i', 'ä', 'ə', 'ā',  'ē',  'ī',  'ō',  'o͞o', 'ä',  'ô',  'ə', 'o͝o', 'ə', 
+		'oi', 'ou', 'i(ə)', 'e(ə)', 'o͝o', 'ou(ə)', 'ou(-ə)' ];
+	const transriptArray = [ 'dʒ', 'ʒ', 'j', 'ʃ',  'tʃ', 'ŋ',  'ð',  'θ',  
+		'æ', 'ɪ', 'ɒ', 'ʌ', 'eɪ', 'ɪ:', 'aɪ', 'əʊ', 'u:', 'ɑ:', 'ɔ:', 'ɜː', 'ʊ', 'ə', 
+		'ɔɪ', 'aʊ',  'ɪə',   'eə',  'ʊə',  'auə',   'auə' ];
+	var from = 0;
+
+	for (var j = 0; j < translitStr.length; j++) {
+		for (var i = 0; i < translitArray.length; i++) {
+			var match = translitStr.indexOf(translitArray[i], from);
+			if (match >= 0) {
+				var start = translitStr.substr(0, match);
+				var end = translitStr.substr(match + translitArray[i].length);
+				translitStr = start + transriptArray[i];
+				//from = translitStr.length;
+				translitStr += end;
+				break;
+			}
+		}
+	}
+
+	return translitStr;
+}
