@@ -158,7 +158,8 @@ function dispatchTranslate() {
 		// determine the sourse language and if it's English
 		if (getSourceLang() == 'en' && translitElem.innerHTML.length) {
 			if (!translitElem.innerHTML.includes(GreySlash)) {
-				var transcriptStr = getEngTranscription(translitElem.innerHTML);
+				var transcriptStr = getEngTranscription(translitElem.innerHTML, 
+					srcTextArea.value);
 				translitElem.innerHTML += GreySlash + transcriptStr;
 			}
 		}
@@ -195,28 +196,122 @@ function getSourceLang() {
 	return false;
 }
 
-function getEngTranscription(translitStr) {
+function getEngTranscription(translitStr, originalWord) {
 	const translitArray  = [ 'j', 'ZH', 'y', 'SH', 'CH', 'NG', 'T͟H', 'TH', 
-		'a', 'i', 'ä', 'ə', 'ā',  'ē',  'ī',  'ō',  'o͞o', 'ä',  'ô',  'ə', 'o͝o', 'ə', 
-		'oi', 'ou', 'i(ə)', 'e(ə)', 'o͝o', 'ou(ə)', 'ou(-ə)' ];
+		'oi', 'ou', 'i(ə)', 'e(ə)', 'o͝o', 'ou(ə)', 'ou(-ə)', 'o͞o', 'o͝o', '(h)w',
+		'a', 'i', 'ä', 'ə', 'ā',  'ē',  'ī',  'ō',  'ä',  'ô',  'ə',  'ə' ];
 	const transriptArray = [ 'dʒ', 'ʒ', 'j', 'ʃ',  'tʃ', 'ŋ',  'ð',  'θ',  
-		'æ', 'ɪ', 'ɒ', 'ʌ', 'eɪ', 'ɪ:', 'aɪ', 'əʊ', 'u:', 'ɑ:', 'ɔ:', 'ɜː', 'ʊ', 'ə', 
-		'ɔɪ', 'aʊ',  'ɪə',   'eə',  'ʊə',  'auə',   'auə' ];
-	var from = 0;
+		'ɔɪ', 'aʊ',  'ɪə',   'eə',  'ʊə',  'auə',   'auə',   'u:', 'ʊ',   'w',
+		'æ', 'ɪ', 'ɒ', 'ʌ', 'eɪ', 'ɪ:', 'aɪ', 'əʊ', 'ɑ:', 'ɔ:', 'ɜː', 'ə' ];
+	var searchFrom = 0;
 
+	// search for translit array items and replace with 
+	// corresponding transript array items
 	for (var j = 0; j < translitStr.length; j++) {
+		var minFound = translitArray.length;
+		// at first, loop all translit array
 		for (var i = 0; i < translitArray.length; i++) {
-			var match = translitStr.indexOf(translitArray[i], from);
+			var match = translitStr.indexOf(translitArray[i], searchFrom);
 			if (match >= 0) {
-				var start = translitStr.substr(0, match);
-				var end = translitStr.substr(match + translitArray[i].length);
-				translitStr = start + transriptArray[i];
-				//from = translitStr.length;
-				translitStr += end;
-				break;
+				// and find the first item to replace
+				if (match < minFound) {
+					minFound = match;
+					var item = i;
+				} 
 			}
+		}
+		// replace if found
+		if (minFound < translitArray.length) {
+			var start = translitStr.substr(0, minFound);
+			var end = translitStr.substr(minFound + translitArray[item].length);
+			var replaceWith;
+
+			if ( translitArray[item] == 'ə' || 
+				 translitArray[item] == 'ä' ||
+				 translitArray[item] == 'o͝o' ) 
+			{
+				replaceWith = makeCorrections(translitArray[item], 
+					originalWord, minFound);
+			} else {
+				replaceWith = transriptArray[item];
+			}
+
+			// replace the item
+			translitStr = start + replaceWith;
+			searchFrom = translitStr.length;
+			translitStr += end;
+		} else {
+			break;		
 		}
 	}
 
 	return translitStr;
+}
+
+// determines more appropriate transcription for 'ə', 'ä' or 'o͝o' translit marks
+function makeCorrections(translitSound, originalWord, replaceFrom) {
+	var replaceWith = '';
+			
+	// if item to replace is 'ə' sound additional analysis are needed, 
+	// because 'ə' may express 'ʌ' and 'ɜː' sounds as well
+	if (translitSound == 'ə') {
+		replaceWith = 'ə'; // general case
+
+		// but if 'ə' express 'u' letter in stressed syllable
+		if (originalWord.length > replaceFrom + 1 && 
+			(originalWord[replaceFrom] == 'u' || 
+			 originalWord[replaceFrom - 1] == 'u')
+		   )
+		{
+			replaceWith = 'ʌ';
+		}
+
+		// and if 'ə' express 'ʌ' sound in the exception syllable 'come'
+		if (originalWord.includes('come'))
+		{
+			replaceWith = 'ʌ';
+		}
+	} 
+
+	// if item to replace is 'ä' sound additional analysis are needed, 
+	// because 'ä' may express 'ɒ' and 'ɑ:' sounds
+	if (translitSound == 'ä') {
+		replaceWith = 'ɑ:'; // general case
+
+		// but if 'ä' express 'o' letter in stressed syllable
+		if (originalWord.length > replaceFrom + 1 && 
+			(originalWord[replaceFrom] == 'o' ||
+			 originalWord[replaceFrom - 1] == 'o') 
+		   )
+		{
+			replaceWith = 'ɒ';
+		}
+	} 
+
+	// if item to replace is 'o͝o' sound additional analysis are needed, 
+	// because 'o͝o' may express 'ʊ' and 'ʊə' sounds
+	if (translitSound == 'o͝o') {
+		replaceWith = 'ʊə'; // general case
+
+		// but if 'o͝o' express 'oo' letters in stressed syllable
+		if (originalWord.length > replaceFrom + 2 &&
+			(originalWord[replaceFrom] == 'o' && 
+			 originalWord[replaceFrom + 1] == 'o' && 
+			 originalWord[replaceFrom + 2] != 'r') ||
+			(originalWord[replaceFrom - 1] == 'o' && 
+			 originalWord[replaceFrom] == 'o' && 
+			 originalWord[replaceFrom + 1] != 'r')
+		   )
+		{
+			replaceWith = 'ʊ';
+		}
+
+		// and if 'o͝o' express 'ʊ' sound in the exception syllable 'put'
+		if (originalWord.includes('put'))
+		{
+			replaceWith = 'ʊ';
+		}
+	}
+
+	return replaceWith;
 }
