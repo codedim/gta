@@ -12,17 +12,22 @@ body { font-family: sans-serif }
 </head><body>
 
 <h2>What is GTA?</h2>
-<p>GTA is a Google Translate Assistant extension for the Google Chrome browser. 
-The extension was specially designed to help with learning a foreign language 
-using the great Google Translate service.
+<p>GTA is a free Google Translate Assistant extension for the Google Chrome and 
+Mozilla Firefox browsers. The extension was specially designed to help with learning 
+a foreign language using the Google Translate service.
 <p class="sizeable"><img src="gta.01.png" width="360" />
+<p>With this great service you can translate any words, phrases, clauses, sentences, 
+and text from-to a lot of languages you want. As well as you can read transliteration 
+and even listen prononciation of it. The service also acts like a dictionary when 
+you've typed just a single word. In this case the service shows word's definitions, 
+translation variations and even frequency of use. That's really cool. 
 <p>Let's look at the service more carefully. What's wrong with it? It's pretty 
-nothing if you are using a mouse. So, what about if you want to use only 
-keyboard to work with it? From this point of view it doesn't look very friendly.
-But, why? Let's see.
+nothing if you are accustomed to using your mouse. But what about if you want to use 
+only keyboard to work with it? From this point of view it doesn't look very friendly. 
+Let's see.
 <p class="sizeable"><img src="gta.02.png" width="360" />
 <p>When you start typing in any text Google immediately brings a list of suggestions 
-to you. It's very useful. But, there's a problem, you can't see phonetic notation 
+to you. It's very useful. But there's a problem, you can't see phonetic notation 
 (transcription) anymore and you aren't able to access the buttons -- for example, 
 to play pronunciation sounds -- before you've pressed <i>Esc</i> key to remove the 
 suggestion list.
@@ -33,7 +38,7 @@ and also have some useful keyboard shortcuts to switch languages, play
 pronunciation, etc? Sounds good? Well, let's go ahead.
 <p class="sizeable"><img src="gta.04.png" width="360" />
 <p>After you has installed the GTA extension, you will be able to see the 
-transcription instead of the '<i>Translate</i>' header and get the following 
+transcription instead of the '<i>Translate</i>' header and have got the following 
 shortcuts:
 <ul><li><b>Ctrl + 'M'</b> - to activate/disactivate microphone;
 </li><li><b>Ctrl + ' , '</b> - to play the left side source text;
@@ -45,8 +50,15 @@ way you can also switch between keyboard input languages and start typing with t
 different language immediately. Use the <b>Ctrl + ' / '</b> shortcut if you just 
 need to switch languages in the service only.</quote>
 </li></ul>
+<p>And there's even more. The extension will focus and select text in input 
+language area when you would be switching between languages or application windows. 
+So you will be able to type or paste new text just at once.
+<p>For some English learners the utility can show phonetic notation used for their 
+language. 
 
 <h2>How to install?</h2>
+
+<h4>Google Chrome</h4>
 <p>You can have this extension installed only in <b>Developer mode</b> currently. 
 To do that click the "<i>Customize and control Google Chrome</i>" button and select 
 "<i>More tools -> Extensions</i>", then enable the "<i>Developer mode</i>" and 
@@ -55,13 +67,44 @@ downloaded this repository.
 <p class="sizeable"><img src="gta.05.png" width="360" />
 <p>Finally, reload the Google Translate service page.
 
+<h4>Mozilla Firefox</h4>
+<!-- https://geektimes.ru/post/279294/ -->
+<p>The installation on this browser is more complicated process. Because it requires 
+an extension to be signed and there's no official way to get around this limitation 
+from Firefox version 48.
+<p>So you can load this extension as a temporary add-on and you're going to need to 
+reload it every time you're starting the browser. Or you can switch off the 
+prohibition of loading of all unsigned extensions. And this is not a good way 
+actually. Anyway, if you want you can do it. 
+<p>To do that you have to switch value <i>xpinstall.signatures.required</i> to 
+<i>false</i> on the browser Configuration page (<i>about:config</i>). And you also 
+have to create a couple of files in Firefox directory.
+<ul><li><i>/firefox_folder/config.js:</i>
+<p><code>try {<br>
+&nbsp;&nbsp;Components.utils.import("resource://gre/modules/addons/XPIProvider.jsm", 
+{})<br>&nbsp;&nbsp;.eval("SIGNED_TYPES.clear()");<br>
+} catch(ex) {}</code>
+</li><li><i>/firefox_folder/defaults/pref/autoconfig.js:</i>
+<p><code>pref("general.config.obscure_value", 0);<br>
+pref("general.config.filename", "config.js");</code>
+</li></ul>
+<p>After that, run the browser, open the browser Extensions page 
+(<i>about:addons</i>) and use "<i>Install Add-on From File</i>" dialog to choose 
+the extension file.
+<p><img src="gta.06.png" />
+<p>To make this file just zip all the stuff of this repository and rename an 
+archive to <i>gtassistant.xpi</i>.
+
 <h2>FAQ</h2>
-<p><b>Why isn't any customization of shortcuts provided?</b>
+<h4>Why isn't any customization of shortcuts provided?</h4>
 <p>The code is pretty simple, so you can change it as you need. Maybe in the next 
 release.
-<p><b>Why is the developer mode needed to be used?</b>
-<p>I haven't yet plans to post the utility on the Google store. So, I apologize for 
-this inconvenience.
+<h4>Why is the developer mode needed to be used?</h4>
+<p>I haven't yet plans to post the utility on the Google or Mozilla stores. So, I 
+apologize for this inconvenience.
+<h4>Can you make support of English transcription for my native language?</h4>
+<p>Yes sure, just provide me with corresponding sound symbols for transcription. 
+Feel free to email me or offer your pull request via GitHub.
 
 <script type="text/javascript">
 $(document).ready(function () {

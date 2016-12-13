@@ -1,15 +1,22 @@
 ## What is GTA?
 
-GTA is a Google Translate Assistant extension for the Google Chrome browser. 
-The extension was specially designed to help with learning a foreign language 
-using the great Google Translate service.
+GTA is a free Google Translate Assistant extension for the Google Chrome and 
+Mozilla Firefox browsers. The extension was specially designed to help with 
+learning a foreign language using the Google Translate service. 
 
 ![](./Info/gta.01.png)
 
+With this great service you can translate any words, phrases, clauses, 
+sentences, and text from-to a lot of languages you want. As well as you can 
+read transliteration and even listen prononciation of it. The service also acts 
+like a dictionary when you've typed just a single word. In this case the service 
+shows word's definitions, translation variations and even frequency of use. 
+That's really cool. 
+
 Let's look at the service more carefully. What's wrong with it? It's pretty 
-nothing if you are using a mouse. So, what about if you want to use only 
-keyboard to work with it? From this point of view it doesn't look very friendly.
-But, why? Let's see.
+nothing if you are accustomed to using your mouse. But what about if you want to 
+use only keyboard to work with it? From this point of view it doesn't look very 
+friendly. Let's see. 
 
 ![](./Info/gta.02.png)
 
@@ -29,7 +36,7 @@ pronunciation, etc? Sounds good? Well, let's go ahead.
 ![](./Info/gta.04.png)
 
 After you has installed the GTA extension, you will be able to see the 
-transcription instead of the '__Translate__' header and get the following 
+transcription instead of the '__Translate__' header and have got the following 
 shortcuts:
 
 * **Ctrl + 'M'** - to activate/disactivate microphone;
@@ -44,7 +51,17 @@ you can also switch between keyboard input languages and start typing with the
 different language immediately. Use the **Ctrl + ' / '** shortcut if you just 
 need to switch languages in the service only.
 
+And there's even more. The extension will focus and select text in input language 
+area when you would be switching between languages or application windows. So you 
+will be able to type or paste new text just at once.
+
+For some English learners the utility can show phonetic notation used for their 
+language. 
+
+
 ## How to install?
+
+#### Google Chrome
 
 You can have this extension installed only in **Developer mode** currently. 
 To do that click the "__Customize and control Google Chrome__" button and select 
@@ -56,14 +73,58 @@ downloaded this repository.
 
 Finally, reload the Google Translate service page.
 
+#### Mozilla Firefox
+
+The installation on this browser is more complicated process. Because it requires 
+an extension to be signed and there's no official way to get around this limitation 
+from Firefox version 48.
+
+So you can load this extension as a temporary add-on and you're going to need to 
+reload it every time you're starting the browser. Or you can switch off the 
+prohibition of loading of all unsigned extensions. And this is not a good way 
+actually. Anyway, if you want you can do it.
+
+To do that you have to switch value "__xpinstall.signatures.required__" to 
+"__false__" on the browser Configuration page (__about:config__). And you also 
+have to create a couple of files in Firefox directory. 
+
+__/firefox_folder/config.js__:
+
+```
+try {
+  Components.utils.import("resource://gre/modules/addons/XPIProvider.jsm", {})
+  .eval("SIGNED_TYPES.clear()");
+} catch(ex) {}
+```
+
+__/firefox_folder/defaults/pref/autoconfig.js__:
+
+```
+pref("general.config.obscure_value", 0);
+pref("general.config.filename", "config.js");
+```
+
+After that, run the browser, open the browser Extensions page (__about:addons__) 
+and use "__Install Add-on From File__" dialog to choose the extension file. 
+
+![](./Info/gta.06.png)
+
+To make this file just zip all the stuff of this repository and rename an archive 
+to "__gtassistant.xpi__". 
+
 ## FAQ
 
-**Why isn't any customization of shortcuts provided?**
+#### Why isn't any customization of shortcuts provided?
 
 The code is pretty simple, so you can change it as you need. Maybe in the next 
 release.
 
-**Why is the developer mode needed to be used?**
+#### Why is the developer mode needed to be used?
 
-I haven't yet plans to post the utility on the Google store. So, apologizing for 
-this inconvenience.
+I haven't yet plans to post the utility on the Google or Mozilla stores. So I 
+apologizing for this inconvenience.
+
+#### Can you make support of English transcription for my native language?
+
+Yes sure, just provide me with corresponding sound symbols for transcription. 
+Feel free to email me or offer your pull request via GitHub. 

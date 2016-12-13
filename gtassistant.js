@@ -25,7 +25,8 @@ var speechElem;      // microphone button
 var srcListenElem;   // source speaker button
 var resListenElem;   // result speaker button
 var srcTextArea;     // input source textarea
-var srcLangArea;     // source language area (buttons)
+var srcLangButtons;  // source language buttons
+var resLangButtons;  // result language buttons
 
 // keyboard and mouse event control arrays
 var keyArray = [];   // array of pressed keys 
@@ -37,17 +38,23 @@ window.onload = function() {
 	translitElem = document.getElementById('src-translit');
 	appnameElem  = document.getElementById('gt-appname');
 	// find all control elements
-	swapElem      = document.getElementById('gt-swap');
-	speechElem    = document.getElementById('gt-speech');
-	srcListenElem = document.getElementById('gt-src-listen');
-	resListenElem = document.getElementById('gt-res-listen');
-	srcTextArea   = document.getElementById('source');
-	srcLangArea   = document.getElementById('gt-sl-sugg');
+	swapElem       = document.getElementById('gt-swap');
+	speechElem     = document.getElementById('gt-speech');
+	srcListenElem  = document.getElementById('gt-src-listen');
+	resListenElem  = document.getElementById('gt-res-listen');
+	srcTextArea    = document.getElementById('source');
+	srcLangButtons = document.getElementById('gt-sl-sugg');
+	resLangButtons = document.getElementById('gt-tl-sugg');
 	
-	if (translitElem && appnameElem && swapElem &&
-		speechElem && srcListenElem && resListenElem && 
-		srcTextArea && srcLangArea) 
+	// the speech button can be unavailabe in mozilla firefox
+	if (!speechElem) 
+		console.log('Error: Microphone button element was not found!');
+
+	// all other elements should be found before..
+	if (translitElem && appnameElem && swapElem && srcListenElem && 
+		resListenElem && srcTextArea && srcLangButtons && resLangButtons) 
 	{
+		// ..we start the dispatchTranslate timer
 		window.setInterval(dispatchTranslate, 100);	
 	} else {
 		if (!translitElem) 
@@ -56,16 +63,16 @@ window.onload = function() {
 			console.log('Error: "Translator" header element was not found!');
 		if (!swapElem) 
 			console.log('Error: Language switcher element was not found!');
-		if (!speechElem) 
-			console.log('Error: Microphone button element was not found!');
 		if (!srcListenElem) 
 			console.log('Error: Source speaker button element was not found!');
 		if (!resListenElem) 
 			console.log('Error: Result speaker button element was not found!');
 		if (!srcTextArea) 
 			console.log('Error: Source textarea element was not found!');
-		if (!srcLangArea) 
-			console.log('Error: Source select language element was not found!');		
+		if (!srcLangButtons) 
+			console.log('Error: Source select language element was not found!');
+		if (!resLangButtons) 
+			console.log('Error: Result select language element was not found!');
 	}
 
 	setMouseEvents();
@@ -155,12 +162,17 @@ function dispatchTranslate() {
 	const GreySlash  = ' <span style="color:gray">/</span> ';
 
 	if (appnameElem.innerHTML !== translitElem.innerHTML) {
-		// determine the sourse language and if it's English
-		if (getSourceLang() == 'en' && translitElem.innerHTML.length) {
-			if (!translitElem.innerHTML.includes(GreySlash)) {
-				var transcriptStr = getEngTranscription(translitElem.innerHTML, 
-					srcTextArea.value);
-				translitElem.innerHTML += GreySlash + transcriptStr;
+		// determine the sourse and result languages, and if.. 
+		if (translitElem.innerHTML.length && 
+			getActiveLang(srcLangButtons) == 'en' && 
+			!translitElem.innerHTML.includes(GreySlash)) 
+		{
+			// ..they are English vs Russian, show transcription
+			if (getActiveLang(resLangButtons) == 'ru') {
+				translitElem.innerHTML += GreySlash + 
+					getEnRuTranscription(translitElem.innerHTML, 
+						srcTextArea.value);
+				
 			}
 		}
 
@@ -179,8 +191,8 @@ function dispatchTranslate() {
 */
 }
 
-function getSourceLang() {
-	var langButtons = srcLangArea.childNodes;
+function getActiveLang(langButtonArea) {
+	var langButtons = langButtonArea.childNodes;
 	for (var i = 0; i < langButtons.length; i++) {
 		if (langButtons[i].hasAttribute('role') &&
 			langButtons[i].getAttribute('role') == 'button')
@@ -196,7 +208,7 @@ function getSourceLang() {
 	return false;
 }
 
-function getEngTranscription(translitStr, originalWord) {
+function getEnRuTranscription(translitStr, originalWord) {
 	const translitArray  = [ 'j', 'ZH', 'y', 'SH', 'CH', 'NG', 'T͟H', 'TH', 
 		'oi', 'ou', 'i(ə)', 'e(ə)', 'o͝o', 'ou(ə)', 'ou(-ə)', 'o͞o', 'o͝o', '(h)w',
 		'a', 'i', 'ä', 'ə', 'ā',  'ē',  'ī',  'ō',  'ä',  'ô',  'ə',  'ə' ];
