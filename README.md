@@ -4,7 +4,7 @@ GTA is a free Google Translate Assistant extension for the Google Chrome and
 Mozilla Firefox browsers. The extension was specially designed to help with 
 learning a foreign language using the Google Translate service. 
 
-![](./Info/gta.01.png)
+![](./info/gta.01.png)
 
 With this great service you can translate any words, phrases, clauses, 
 sentences, and text from-to a lot of languages you want. As well as you can 
@@ -18,25 +18,25 @@ nothing if you are accustomed to using your mouse. But what about if you want to
 use only keyboard to work with it? From this point of view it doesn't look very 
 friendly. Let's see. 
 
-![](./Info/gta.02.png)
+![](./info/gta.02.png)
 
 When you start typing in any text Google immediately brings a list of suggestions 
-to you. It's very useful. But, there's a problem, you can't see phonetic notation 
+to you. It's very useful. But there's a problem, you can't see phonetic notation 
 (transcription) anymore and you aren't able to access the buttons - for example, 
 to play pronunciation sounds - before you've pressed __Esc__ key to remove the 
 suggestion list.
 
-![](./Info/gta.03.png)
+![](./info/gta.03.png)
 
 An another essential problem is that you can't switch languages without your 
 mouse. But, what about if we might be able to see the transcription all the time 
 and also have some useful keyboard shortcuts to switch languages, play 
 pronunciation, etc? Sounds good? Well, let's go ahead.
 
-![](./Info/gta.04.png)
+![](./info/gta.04.png)
 
 After you has installed the GTA extension, you will be able to see the 
-transcription instead of the '__Translate__' header and have got the following 
+transliteration instead of the '__Translate__' header and have got the following 
 shortcuts:
 
 * **Ctrl + 'M'** - to activate/disactivate microphone;
@@ -51,12 +51,10 @@ you can also switch between keyboard input languages and start typing with the
 different language immediately. Use the **Ctrl + ' / '** shortcut if you just 
 need to switch languages in the service only.
 
-And there's even more. The extension will focus and select text in input language 
-area when you would be switching between languages or application windows. So you 
-will be able to type or paste new text just at once.
-
-For some English learners the utility can show phonetic notation used for their 
-language. 
+And there're even more things. The extension will focus and select text in input 
+language area when you would be switching between languages or application windows. 
+So you will be able to type or paste new text just at once. For some English 
+learners the utility can show phonetic notation used for their language. 
 
 
 ## How to install?
@@ -69,7 +67,7 @@ To do that click the "__Customize and control Google Chrome__" button and select
 press the "__Load unpacked extension__" button. Point the folder when you have 
 downloaded this repository.
 
-![](./Info/gta.05.png)
+![](./info/gta.05.png)
 
 Finally, reload the Google Translate service page.
 
@@ -77,7 +75,7 @@ Finally, reload the Google Translate service page.
 
 The installation on this browser is more complicated process. Because it requires 
 an extension to be signed and there's no official way to get around this limitation 
-from Firefox version 48.
+since Firefox version 48.
 
 So you can load this extension as a temporary add-on and you're going to need to 
 reload it every time you're starting the browser. Or you can switch off the 
@@ -107,7 +105,7 @@ pref("general.config.filename", "config.js");
 After that, run the browser, open the browser Extensions page (__about:addons__) 
 and use "__Install Add-on From File__" dialog to choose the extension file. 
 
-![](./Info/gta.06.png)
+![](./info/gta.06.png)
 
 To make this file just zip all the stuff of this repository and rename an archive 
 to "__gtassistant.xpi__". 
