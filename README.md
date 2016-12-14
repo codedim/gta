@@ -126,3 +126,8 @@ apologizing for this inconvenience.
 
 Yes sure, just provide me with corresponding sound symbols for transcription. 
 Feel free to email me or offer your pull request via GitHub. 
+
+#### I've got a warning message when trying to install this extension.
+
+The warning message about __Unrecognized manifest key 'applications'__ in 
+Google Chrome browser is normal. This key is needed for Mozilla Firefox support.
