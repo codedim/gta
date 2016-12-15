@@ -45,11 +45,14 @@ shortcuts:
 * **Ctrl + ' / '** - to switch between languages;
 * **Alt + Shift** - to switch languages and select text.
 
-> **Note:** The **Alt + Shift** shortcut is more useful when you need to switch 
-between your favorite languages in the Google service, because in such a way 
-you can also switch between keyboard input languages and start typing with the 
-different language immediately. Use the **Ctrl + ' / '** shortcut if you just 
+> **Note 1:** The **Alt + Shift** shortcut is more useful when you need to 
+switch between your favorite languages in the Google service, because in such 
+a way you can also switch between keyboard input languages and start typing with 
+the different language immediately. Use the **Ctrl + ' / '** shortcut if you just 
 need to switch languages in the service only.
+
+> **Note 2:** If you just want to switch between keyboard input languages without 
+switching of languages in the service, use **Esc + Alt + Shift** key combination.
 
 And there're even more things. The extension will focus and select text in input 
 language area when you would be switching between languages or application windows. 
